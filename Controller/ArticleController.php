@@ -11,6 +11,7 @@
 
 namespace Sulu\Bundle\ArticleBundle\Controller;
 
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use JMS\Serializer\SerializationContext;
@@ -261,12 +262,12 @@ class ArticleController extends RestController implements ClassResourceInterface
             ]
         );
 
+        $context = new Context();
+        $context->setSerializeNull(true)
+                ->addGroups(['defaultPage', 'defaultArticle', 'smallArticlePage']);
+
         return $this->handleView(
-            $this->view($document)->setSerializationContext(
-                SerializationContext::create()
-                    ->setSerializeNull(true)
-                    ->setGroups(['defaultPage', 'defaultArticle', 'smallArticlePage'])
-            )
+            $this->view($document)->setContext($context)
         );
     }
 
@@ -288,12 +289,12 @@ class ArticleController extends RestController implements ClassResourceInterface
         $this->handleActionParameter($action, $document, $locale);
         $this->getDocumentManager()->flush();
 
+        $context = new Context();
+        $context->setSerializeNull(true)
+            ->addGroups(['defaultPage', 'defaultArticle', 'smallArticlePage']);
+
         return $this->handleView(
-            $this->view($document)->setSerializationContext(
-                SerializationContext::create()
-                    ->setSerializeNull(true)
-                    ->setGroups(['defaultPage', 'defaultArticle', 'smallArticlePage'])
-            )
+            $this->view($document)->setContext($context)
         );
     }
 
@@ -326,12 +327,12 @@ class ArticleController extends RestController implements ClassResourceInterface
         $this->handleActionParameter($action, $document, $locale);
         $this->getDocumentManager()->flush();
 
+        $context = new Context();
+        $context->setSerializeNull(true)
+            ->addGroups(['defaultPage', 'defaultArticle', 'smallArticlePage']);
+
         return $this->handleView(
-            $this->view($document)->setSerializationContext(
-                SerializationContext::create()
-                    ->setSerializeNull(true)
-                    ->setGroups(['defaultPage', 'defaultArticle', 'smallArticlePage'])
-            )
+            $this->view($document)->setContext($context)
         );
     }
 
@@ -449,12 +450,12 @@ class ArticleController extends RestController implements ClassResourceInterface
             }
 
             // prepare view
+            $context = new Context();
+            $context->setSerializeNull(true)
+                ->addGroups(['defaultPage', 'defaultArticle', 'smallArticlePage']);
+
             $view = $this->view($data);
-            $view->setSerializationContext(
-                SerializationContext::create()
-                    ->setSerializeNull(true)
-                    ->setGroups(['defaultPage', 'defaultArticle', 'smallArticlePage'])
-            );
+            $view->setContext($context);
         } catch (RestException $exc) {
             $view = $this->view($exc->toArray(), 400);
         }
