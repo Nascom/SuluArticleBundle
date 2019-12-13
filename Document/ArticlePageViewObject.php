@@ -11,20 +11,20 @@
 
 namespace Sulu\Bundle\ArticleBundle\Document;
 
-use ONGR\ElasticsearchBundle\Annotation\Object;
+use ONGR\ElasticsearchBundle\Annotation\ObjectType;
 use ONGR\ElasticsearchBundle\Annotation\Property;
 
 /**
  * Contains page information.
  *
- * @Object
+ * @ObjectType
  */
 class ArticlePageViewObject
 {
     /**
      * @var string
      *
-     * @Property(type="string", options={"index"="not_analyzed"})
+     * @Property(type="keyword")
      */
     public $uuid;
 
@@ -32,11 +32,11 @@ class ArticlePageViewObject
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *        "fields"={
-     *            "raw"={"type"="string", "index"="not_analyzed"},
-     *            "value"={"type"="string"}
+     *            "raw"={"type"="keyword"},
+     *            "value"={"type"="text"}
      *        }
      *    }
      * )
@@ -47,11 +47,11 @@ class ArticlePageViewObject
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *         "fields":{
-     *            "raw":{"type":"string", "index":"not_analyzed"},
-     *            "value":{"type":"string"}
+     *            "raw":{"type":"keyword"},
+     *            "value":{"type":"text"}
      *         }
      *     }
      * )
@@ -61,14 +61,14 @@ class ArticlePageViewObject
     /**
      * @var int
      *
-     * @Property(type="integer", options={"index"="not_analyzed"})
+     * @Property(type="integer")
      */
     public $pageNumber;
 
     /**
      * @var string
      *
-     * @Property(type="string", options={"index":"not_analyzed"})
+     * @Property(type="keyword")
      */
     public $contentData;
 

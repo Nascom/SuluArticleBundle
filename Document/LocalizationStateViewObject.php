@@ -11,27 +11,27 @@
 
 namespace Sulu\Bundle\ArticleBundle\Document;
 
-use ONGR\ElasticsearchBundle\Annotation\Object;
+use ONGR\ElasticsearchBundle\Annotation\ObjectType;
 use ONGR\ElasticsearchBundle\Annotation\Property;
 
 /**
  * Contains localization state information for articles.
  *
- * @Object
+ * @ObjectType
  */
 class LocalizationStateViewObject
 {
     /**
      * @var string
      *
-     * @Property(type="string", options={"analyzer": "keyword"})
+     * @Property(type="keyword")
      */
     public $state;
 
     /**
      * @var string
      *
-     * @Property(type="string", options={"analyzer": "keyword"})
+     * @Property(type="keyword")
      */
     public $locale;
 

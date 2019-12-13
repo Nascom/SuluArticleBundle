@@ -24,11 +24,32 @@ class ArticleBridge extends StructureBridge
     private $webspaceKey = null;
 
     /**
+     * @var string
+     */
+    private $uuid;
+
+    /**
      * {@inheritdoc}
      */
     public function getView()
     {
         return $this->structure->view;
+    }
+
+    public function getUuid()
+    {
+        // is set for structure loaded with document from document-manager
+        // is not set when using structure with view-document
+        if ($this->document) {
+            return parent::getUuid();
+        }
+
+        return $this->uuid;
+    }
+
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 
     /**
@@ -41,24 +62,14 @@ class ArticleBridge extends StructureBridge
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * Will be called by SuluCollector to collect profiler data.
-     */
-    public function getShadowLocales()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Will be called by SuluCollector to collect profiler data.
-     */
     public function getEnabledShadowLanguages()
     {
-        return null;
+        return $this->inspector->getShadowLocales($this->getDocument());
+    }
+
+    public function getConcreteLanguages()
+    {
+        return $this->inspector->getConcreteLocales($this->getDocument());
     }
 
     /**

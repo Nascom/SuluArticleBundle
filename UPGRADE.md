@@ -7,6 +7,53 @@
 The ElasticSearchFieldDescriptor changed see FieldDescriptor update in the UPGRADE.md of sulu/sulu.
 
 ## dev-master
+## 1.1.1
+
+New security-contexts have been created per article type.
+This means permission for articles need to be re-set.
+
+## 1.1.0
+
+### Elasticsearch 2.0 and PHP 5.5 support dropped
+
+To support Elasticsearch 6 we needed to drop support for Elasticsearch 2.0
+and PHP 5.5 they will be maintained in the `1.0.x` Version of the bundle.
+
+When using Elasticsearch 6 and used the same index for custom entities you
+need to change this and create an own index for them as having multiple
+Elasticsearch types in the same index is not longer supported by Elasticsearch.
+
+When you UPGRADE from ES2 to ES5/ES6 have a look at the new
+[ongr_elasticsearch](Resources/doc/installation.md) configuration.
+
+## 1.0.0
+
+### Localized webspace settings
+
+Reindex elasticsearch data:
+
+```bash
+bin/websiteconsole sulu:article:reindex --drop
+bin/adminconsole sulu:article:reindex --drop
+``` 
+
+Check also the new possible localized configuration.
+
+### Elasticsearch Mapping Changed
+
+Mapping has changed, reindex whole elasticsearch data:
+
+```bash
+bin/websiteconsole sulu:article:reindex --drop
+bin/adminconsole sulu:article:reindex --drop
+``` 
+
+## 1.0.0-RC7
+
+### Multi webspace behavior
+
+When you have a multi webspace setup you need to follow the new instructions:
+[multi webspaces](Resources/doc/multi-webspaces.md)
 
 ### ArticlePageDocument route definition need to be defined
 

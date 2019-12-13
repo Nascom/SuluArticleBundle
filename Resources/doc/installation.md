@@ -2,15 +2,12 @@
 
 ### ElasticSearch
 
-The SuluArticleBundle requires a running elasticsearch `^2.2` or `^5.0`.
+The SuluArticleBundle requires a running elasticsearch `^5.0` or `^6.0`.
 
-There is an different installation and configuration depending on which version of ElasticSearch you are using.
-
-If you use version `^2.2` read: [Installation for ElasticSearch 2.2](installation-es2.md)
-else read: [Installation for ElasticSearch 5.0](installation-es5.md) 
+For elasticsearch `^2.0` see the [1.0.x](https://github.com/sulu/SuluArticleBundle/tree/release/1.0) version of the bundle.
 
 ## Install the bundle
- 
+
 ```bash
 composer require sulu/article-bundle
 ```
@@ -54,6 +51,32 @@ sulu_core:
                     type: "article"
 ```
 
+### Configure OngrElasticsearchBundle
+
+```yml
+# app/config/config.yml
+
+ongr_elasticsearch:
+    analysis:
+        tokenizer:
+            pathTokenizer:
+                type: path_hierarchy
+        analyzer:
+            pathAnalyzer:
+                tokenizer: pathTokenizer
+    managers:
+        default:
+            index:
+                index_name: su_articles
+            mappings:
+                - SuluArticleBundle
+        live:
+            index:
+                index_name: su_articles_live
+            mappings:
+                - SuluArticleBundle
+```
+
 ### Configure the routing
 
 ```yml
@@ -68,6 +91,51 @@ sulu_article:
     resource: "@SuluArticleBundle/Resources/config/routing.xml"
     prefix: /admin/articles
 ```
+
+### Configure multi webspace setup
+
+Simple configuration:
+```yml
+sulu_article:
+    default_main_webspace: 'webspace1'
+    default_additional_webspaces:
+        - 'webspace2'
+        - 'webspace3'
+```
+
+Localized configuration:
+```yml
+sulu_article:
+    default_main_webspace: 
+        de: 'webspaceA'
+        en: 'webspaceX'
+    default_additional_webspaces:
+        de:
+            - 'webspaceN'
+            - 'webspaceM'
+        en:
+            - 'webspaceN'
+```
+
+Localized configuration with a defined default:
+```yml
+sulu_article:
+    default_main_webspace: 
+        default: 'webspaceA'
+        en: 'webspaceX'
+        fr: 'webspaceF'
+    default_additional_webspaces:
+        default:
+            - 'webspaceB'
+            - 'webspaceC'
+        de:
+            - 'webspaceN'
+            - 'webspaceM'
+        en:
+            - 'webspaceN'
+```
+
+More information about this topic can be found in the section [multi-webspaces](multi-webspaces.md).
 
 ## Create Template
 
@@ -116,12 +184,18 @@ php bin/console ongr:es:index:create
 php bin/console ongr:es:index:create --manager=live
 ```
 
+## Permissions:
+Make sure you've set the correct permissions in the Sulu backend for this bundle!
+`Settings > User Roles`
+
 ## Possible bundle configurations:
 
 ```yml
 # app/config/config.yml
 
 sulu_article:
+    default_main_webspace: null
+    default_additional_webspaces: []
     smart_content:
         default_limit:        100
     content_types:

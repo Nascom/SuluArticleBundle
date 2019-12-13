@@ -57,16 +57,31 @@ define(['underscore', 'config', 'css!suluarticlecss/main'], function(_, Config) 
                         return {id: locale, title: locale};
                     }),
                     settingsKey: 'articleLanguage',
-                    typeNames: Object.keys(articleConfig.types),
-                    types: articleConfig.types,
+                    typeNames: Object.keys(types(articleConfig.types)),
+                    types: types(articleConfig.types),
                     templates: articleConfig.templates,
                     displayTabAll: articleConfig.displayTabAll,
                     defaultAuthor: articleConfig.defaultAuthor,
                     pageTreeEnabled: articleConfig.pageTreeEnabled,
                     classes: articleConfig.classes,
+                    showWebspaceSettings: articleConfig.showWebspaceSettings,
+                    webspaceSettings: articleConfig.webspaceSettings,
+                    webspaces: articleConfig.webspaces,
                 };
 
             Config.set('sulu_article', config);
+
+            function types (types) {
+                var typeList = {};
+                _.each(types, function(config, type) {
+                    var permissions = Config.get('sulu_security.contexts')['sulu.modules.articles_' + type];
+                    if (permissions && permissions['view'] !== false) {
+                        typeList[type] = config;
+                    }
+                });
+
+                return typeList;
+            }
 
             /**
              * Returns current locale for articles.

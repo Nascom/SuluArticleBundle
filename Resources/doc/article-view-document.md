@@ -25,6 +25,9 @@ is requested (content-types, smart-content, ...).
 | pages | ArticlePageViewObject[] | Content of pages (incl. content and view) |
 | content | array | Resolved content from raw-data |
 | view | array | Resolved view from raw-data |
+| targetWebspace | string | Recommended webspace key |
+| mainWebspace | string | Configured main webspace |
+| additionalWebspaces | string[] | Configured additional webspaces |
 
 The `content` and `view` property is represented by a proxy to avoid resolving data where it is not needed.
 
@@ -53,10 +56,10 @@ class ArticleViewDocument extends SuluArticleViewDocument
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *        "fields"={
-     *            "raw"={"type"="string", "index"="not_analyzed"}
+     *            "raw"={"type"="keyword"}
      *        }
      *    }
      * )

@@ -12,14 +12,14 @@
 namespace Sulu\Bundle\ArticleBundle\Document;
 
 use ONGR\ElasticsearchBundle\Annotation\Embedded;
-use ONGR\ElasticsearchBundle\Annotation\Object;
+use ONGR\ElasticsearchBundle\Annotation\ObjectType;
 use ONGR\ElasticsearchBundle\Annotation\Property;
 use ONGR\ElasticsearchBundle\Collection\Collection;
 
 /**
  * Contains excerpt information for articles.
  *
- * @Object
+ * @ObjectType
  */
 class ExcerptViewObject
 {
@@ -27,11 +27,11 @@ class ExcerptViewObject
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *        "fields"={
-     *            "raw"={"type"="string", "index"="not_analyzed"},
-     *            "value"={"type"="string"}
+     *            "raw"={"type"="keyword"},
+     *            "value"={"type"="text"}
      *        }
      *    }
      * )
@@ -42,11 +42,11 @@ class ExcerptViewObject
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *        "fields"={
-     *            "raw"={"type"="string", "index"="not_analyzed"},
-     *            "value"={"type"="string"}
+     *            "raw"={"type"="keyword"},
+     *            "value"={"type"="text"}
      *        }
      *    }
      * )
@@ -57,11 +57,11 @@ class ExcerptViewObject
      * @var string
      *
      * @Property(
-     *     type="string",
+     *     type="text",
      *     options={
      *        "fields"={
-     *            "raw"={"type"="string", "index"="not_analyzed"},
-     *            "value"={"type"="string"}
+     *            "raw"={"type"="keyword"},
+     *            "value"={"type"="text"}
      *        }
      *    }
      * )

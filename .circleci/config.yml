@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/php:7.1-node-browsers
         environment:
-          - ES_VERSION=5.6.8
+          - ES_VERSION=6.5.4
           - ARTICLE_TEST_CASE=extend
       - image: circleci/mysql:5.7
         environment:
@@ -32,7 +32,7 @@ jobs:
           keys:
             - composer-v2-{{ checksum "composer.json" }}
             - composer-v2-
-      - run: composer install -n --prefer-dist
+      - run: php -d memory_limit=-1 /usr/local/bin/composer install -n --prefer-dist
       - save_cache:
           key: composer-v2-{{ checksum "composer.json" }}
           paths:
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Run Elasticsearch
           command: |
-            ./elasticsearch-${ES_VERSION}/bin/elasticsearch
+            ES_JAVA_OPTS="-Xms512m -Xmx1024m" ./elasticsearch-${ES_VERSION}/bin/elasticsearch
           background: true
       - run:
           name: Test Elasticsearch
