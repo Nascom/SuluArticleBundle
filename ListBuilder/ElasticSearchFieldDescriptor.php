@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\ArticleBundle\ListBuilder;
 
 use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
+use Sulu\Component\Rest\ListBuilder\FieldDescriptorInterface;
 
 /**
  * Extends the default FieldDescriptor with the property sort field to configure it.
@@ -19,7 +20,7 @@ use Sulu\Component\Rest\ListBuilder\FieldDescriptor;
  */
 class ElasticSearchFieldDescriptor extends FieldDescriptor
 {
-    public static function create($name, $translation = null)
+    public static function create(string $name, string $translation = null)
     {
         return new ElasticSearchFieldDescriptorBuilder($name, $translation);
     }
@@ -30,25 +31,25 @@ class ElasticSearchFieldDescriptor extends FieldDescriptor
     private $sortField;
 
     public function __construct(
-        $name,
-        $sortField = null,
-        $translation = null,
-        $disabled = false,
-        $default = false,
-        $type = '',
-        $width = '',
-        $minWidth = '',
-        $sortable = true,
-        $editable = false,
-        $cssClass = ''
+        string $name,
+        string $sortField = null,
+        string $translation = null,
+        string $visibility = FieldDescriptorInterface::VISIBILITY_YES,
+        string $searchability = FieldDescriptorInterface::SEARCHABILITY_NEVER,
+        string $type = '',
+        string $width = '',
+        string $minWidth = '',
+        bool $sortable = true,
+        bool $editable = false,
+        string $cssClass = ''
     ) {
         $this->sortField = $sortField ? $sortField : $name;
 
         parent::__construct(
             $name,
             $translation,
-            $disabled,
-            $default,
+            $visibility,
+            $searchability,
             $type,
             $width,
             $minWidth,
